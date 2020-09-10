@@ -21,7 +21,44 @@ const BLOG_POSTS_QUERY = gql`
     }
 `;
 
-const nodeMap = ({ nodeType, data }) => {
+const marksMap = ({ type }) => {
+  switch(type) {
+    case 'code':
+      return (children) => (
+        <pre>
+          {children}
+        </pre>
+      )
+    case 'underline':
+      return (children) => (
+        <u>
+          {children}
+        </u>
+      )
+    case 'italic':
+      return (children) => (
+        <i>
+          {children}
+        </i>
+      )
+    case 'bold':
+      return (children) => (
+        <b>
+          {children}
+        </b>
+      )
+    default:
+          return (children) => children
+  }
+}
+
+const parseMarks = ({ value, marks, ...content }) => {
+  return marks && marks.reduce((acc, mark) => {
+    return marksMap(mark)(acc)
+  }, value)
+}
+
+const nodeMap = ({ nodeType, data, marks }) => {
   switch(nodeType) {
     case 'paragraph':
       return (children) => (
@@ -59,7 +96,7 @@ const nodeMap = ({ nodeType, data }) => {
 function parseBody(content) {
     return content.content && content.content.map((content) => {
         return nodeMap(content)(
-            content.content ? parseBody(content) : content.value
+            content.content ? parseBody(content) : parseMarks(content)
         )
     })
 }

@@ -1,7 +1,7 @@
 import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 
-const space = 'v8kxjbnfbd3q';
+const space = 'PRIVATE_API_KEY';
 
 const httpLink = createHttpLink({
     uri: `https://graphql.contentful.com/content/v1/spaces/${space}`,

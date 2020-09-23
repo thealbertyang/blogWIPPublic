@@ -1,7 +1,7 @@
 import { Composition } from 'atomic-layout'
 import { useField, Formik } from 'formik';
-import Input from '../components/dataEntry/Input'
-import Button from '../components/general/Button';
+import Input from '../../components/dataEntry/Input'
+import Button from '../../components/general/Button';
 
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 
